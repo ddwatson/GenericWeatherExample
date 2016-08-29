@@ -1,0 +1,36 @@
+{
+    "author": "ddwatson",
+    "dependencies": {
+        "pebble-clay": "^1.0.2",
+        "pebble-generic-weather": "^1.1.0"
+    },
+    "keywords": [],
+    "name": "genericweatherexample",
+    "pebble": {
+        "capabilities": [
+            "location",
+            "configurable"
+        ],
+        "displayName": "GenericWeatherExample",
+        "enableMultiJS": true,
+        "messageKeys": [
+            "OWMAPIKEY",
+            "READY"
+        ],
+        "projectType": "native",
+        "resources": {
+            "media": []
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "61afd9de-3487-492f-9a70-0afe6d7501c6",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.0.0"
+}
