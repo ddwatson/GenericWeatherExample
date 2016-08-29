@@ -1,6 +1,8 @@
 # GenericWeatherExample
 
-Welcome to my demo pebble watchface that demonstrates the pebble-clay and pebble-generic-weather libraries as well as time display and persistent variable storage.  There were no other demos out there combining these features so after I figured it out, I figured I would provide on for you.
+Welcome to my demo pebble watchface that demonstrates the pebble-clay and pebble-generic-weather libraries 
+as well as time display and persistent variable storage.  There were no other demos out there combining these 
+features so after I figured it out, I figured I would provide on for you.
 
 To use:
 1) Get a Cloudpebble Account
