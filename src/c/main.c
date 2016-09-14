@@ -1,11 +1,14 @@
 #include <pebble.h>
-
 #include <pebble-generic-weather/pebble-generic-weather.h>
 #include <pebble-events/pebble-events.h>
 
 static Window *s_window;
 static TextLayer *s_text_layer, *s_time_layer;
 static char api_key[50];
+static char userlat[12];
+static char userlon[12];
+static char userinput[26] = "68.707391, -52.852063";
+GenericWeatherCoordinates s_usercoord;
 
 static void read_persist()
 {
@@ -13,11 +16,22 @@ static void read_persist()
 	{
 		persist_read_string(MESSAGE_KEY_OWMAPIKEY, api_key, sizeof(api_key));
 	}
+	if(persist_exists(MESSAGE_KEY_USERLATITUDE))
+	{
+		persist_read_string(MESSAGE_KEY_USERLATITUDE, userlat, sizeof(userlat));
+	}
+	if(persist_exists(MESSAGE_KEY_USERLONGITUDE))
+	{
+		persist_read_string(MESSAGE_KEY_USERLONGITUDE, userlon, sizeof(userlon));
+	}
 }
 
 static void store_persist()
 {
 	persist_write_string(MESSAGE_KEY_OWMAPIKEY, api_key);
+	persist_write_string(MESSAGE_KEY_USERLATITUDE, userlat);
+	persist_write_string(MESSAGE_KEY_USERLONGITUDE, userlon);
+
 }
 
 static void weather_callback(GenericWeatherInfo *info, GenericWeatherStatus status) {
@@ -82,6 +96,32 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 		generic_weather_set_api_key(api_key);
 		generic_weather_fetch(weather_callback);
 	}
+
+	data = dict_find(iterator, MESSAGE_KEY_USERLATITUDE);
+	if(data)
+	{
+		strcpy(userlat, data->value->cstring);
+	APP_LOG(APP_LOG_LEVEL_INFO, "LAT success!");
+    s_usercoord.latitude = atoi(userlat);//6478928;
+    if ((s_usercoord.latitude != 0) && (s_usercoord.longitude != 0)) {
+      generic_weather_set_location(s_usercoord);}
+    else {
+      generic_weather_set_location(GENERIC_WEATHER_GPS_LOCATION);}
+ 		generic_weather_fetch(weather_callback);
+	}
+
+	data = dict_find(iterator, MESSAGE_KEY_USERLONGITUDE);
+	if(data)
+	{
+		strcpy(userlon, data->value->cstring);
+	APP_LOG(APP_LOG_LEVEL_INFO, "Long success!");
+  s_usercoord.longitude = atoi(userlon);//-4609654
+    if ((s_usercoord.latitude != 0) && (s_usercoord.longitude != 0)) {
+      generic_weather_set_location(s_usercoord);}
+    else {
+      generic_weather_set_location(GENERIC_WEATHER_GPS_LOCATION);}
+		generic_weather_fetch(weather_callback);
+  }
 }
 
 static void inbox_dropped_callback(AppMessageResult reason, void *context)
@@ -143,6 +183,19 @@ static void init() {
   // Make sure the time is displayed from the start
   update_time();
 
+//https://forums.pebble.com/t/split-a-string-on-a-delimiter/5836/3
+/*  char *r = l;
+  while(r != '/') r++;
+  *r++ = '\0';
+  // left part is l, right part is r
+*/
+  
+/*hardcoded proof of concept
+  s_usercoord.latitude = 6870739;
+  s_usercoord.longitude = -5285206;
+  generic_weather_set_location(s_usercoord);
+*/   
+  
   // Replace this with your own API key from OpenWeatherMap.org
   generic_weather_init();
   generic_weather_set_api_key(api_key);

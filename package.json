@@ -2,20 +2,23 @@
     "author": "ddwatson",
     "dependencies": {
         "pebble-clay": "^1.0.2",
-        "pebble-generic-weather": "^1.1.0"
+        "pebble-events": "^1.1.0",
+        "pebble-generic-weather": "^1.1.2"
     },
     "keywords": [],
-    "name": "genericweatherexample",
+    "name": "pebblegenericweatherexample",
     "pebble": {
         "capabilities": [
             "location",
             "configurable"
         ],
-        "displayName": "GenericWeatherExample",
+        "displayName": "PebbleGenericWeatherExample",
         "enableMultiJS": true,
         "messageKeys": [
             "OWMAPIKEY",
-            "READY"
+            "READY",
+            "USERLATITUDE",
+            "USERLONGITUDE"
         ],
         "projectType": "native",
         "resources": {
@@ -27,7 +30,7 @@
             "basalt",
             "chalk"
         ],
-        "uuid": "61afd9de-3487-492f-9a70-0afe6d7501c6",
+        "uuid": "0fd337df-6231-49bd-8308-610956b76b4f",
         "watchapp": {
             "watchface": true
         }

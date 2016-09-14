@@ -19,6 +19,18 @@ module.exports = [
         "messageKey": "OWMAPIKEY",
         "defaultValue": "",
         "label": "OpenWeatherMap API Key"
+      },
+      {
+        "type": "input",
+        "messageKey": "USERLATITUDE",
+        "defaultValue": "",
+        "label": "User defined latitude"
+      },
+      {
+        "type": "input",
+        "messageKey": "USERLONGITUDE",
+        "defaultValue": "",
+        "label": "User defined longitude"
       }
     ]
   },
